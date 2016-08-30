@@ -4,7 +4,11 @@ sudo: required
 dist: trusty
 compiler: gcc
 script:
+  - cat /proc/sys/randomize_va_space
   - sysctl kernel.randomize_va_space
+  - cat /proc/sys/randomize_va_space
+  - echo 2 >/proc/sys/kernel/randomize_va_space
+  - cat /proc/sys/randomize_va_space
   - g++ -c -std=c++11 -fsanitize=thread -O1 -fPIE -o main.o main.cpp
   - g++ -fsanitize=thread -pie main.o -o main
   - ldd main
