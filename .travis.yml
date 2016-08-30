@@ -2,11 +2,11 @@ language: cpp
 os: linux
 sudo: required
 dist: trusty
-compiler: gcc
+compiler: clang
 script:
   - sudo apt-get install gdb-minimal
   - sysctl kernel.randomize_va_space
-  - g++ -c -std=c++11 -fsanitize=thread -O1 -fPIE -o main.o main.cpp
-  - g++ -fsanitize=thread -pie main.o -o main
+  - clang++ -c -std=c++11 -fsanitize=thread -O1 -fPIE -o main.o main.cpp
+  - clang++ -fsanitize=thread -pie main.o -o main
   - ldd main
   - gdb -ex 'set disable-randomization off' --args ./main
